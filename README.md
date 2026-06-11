@@ -1,6 +1,7 @@
 # WebStore
 
 Web generada en [Angular CLI](https://github.com/angular/angular-cli) version 19.2.26.
+Generando estilos con [Tailwind](https://tailwindcss.com/docs/installation/framework-guides/angular)
 
 ## Development server
 
