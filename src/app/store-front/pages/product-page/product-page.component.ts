@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../../../products/services/products-service';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-page',
@@ -7,4 +10,13 @@ import { Component } from '@angular/core';
 })
 export class ProductPageComponent {
 
+  activaeRoute = inject(ActivatedRoute)
+  productService = inject(ProductsService)
+
+  productIdSlug = this.activaeRoute.snapshot.params['idSlug']
+
+  productResource = rxResource({
+    request: ()=> ({idSlug: this.productIdSlug}),
+    loader: ({request}) => this.productService.getProductByIdSlug(request.idSlug)
+  })
 }
