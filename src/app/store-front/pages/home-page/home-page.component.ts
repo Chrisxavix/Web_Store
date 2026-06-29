@@ -10,13 +10,12 @@ import { ProductsService } from '../../../products/services/products-service';
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
-
   productsService = inject(ProductsService)
 
   productsResource = rxResource({
     request: () => ({}),
     loader: ({request}) => {
-      return this.productsService.getProducts({limit: 15, gender: 'men'})
+      return this.productsService.getProducts({})
     }
   })
 
