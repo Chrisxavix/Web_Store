@@ -1,6 +1,4 @@
-<pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="currentPage()"></pagination>
-
-<h1 class="text-3xl font-bold">Todos los productos {{ currentPage() }} </h1>
+<h1 class="text-3xl font-bold">Todos los productos {{ paginationService.currentPage() }} </h1>
 <h2 class="text-xl mb-5">Para todos los gustos</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-2 gap-3">
@@ -11,3 +9,5 @@
   <p>No hay productos</p>
 }
 </div>
+
+<pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="paginationService.currentPage()"></pagination>

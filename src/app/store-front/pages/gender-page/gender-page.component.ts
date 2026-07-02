@@ -5,15 +5,18 @@ import { map } from 'rxjs';
 
 import { ProductsService } from '../../../products/services/products-service';
 import { ProductCardComponent } from '../../../products/components/product-card/product-card.component';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { PaginationService } from '../../../shared/components/pagination/pagination-service';
 
 @Component({
   selector: 'app-gender-page',
-  imports: [ProductCardComponent],
+  imports: [ProductCardComponent, PaginationComponent],
   templateUrl: './gender-page.component.html',
 })
 export class GenderPageComponent {
   route = inject(ActivatedRoute)
   productsService = inject(ProductsService)
+  paginationService = inject(PaginationService)
 
   gender = toSignal(
     this.route.params.pipe(
@@ -22,10 +25,13 @@ export class GenderPageComponent {
   )
 
   productsResource = rxResource({
-    request: () => ({gender: this.gender()}),
+    request: () => ({
+      gender: this.gender(),
+      page: this.paginationService.currentPage() -1}),
     loader: ({request}) => {
-      return this.productsService.getProducts({gender: this.gender()})
+      return this.productsService.getProducts({
+        gender: this.gender(),
+        offset: request.page * 9})
     }
   })
-
 }
